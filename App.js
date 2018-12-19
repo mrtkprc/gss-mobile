@@ -2,13 +2,14 @@ import React from "react";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import * as Expo from "expo";
 import { createStore,applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { Toast, ActionSheet } from 'native-base';
 import rootReducer from './src/reducers/rootReducer';
 import {Provider} from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import HomeScreen from './src/components/screens/HomeScreen';
 import SurveilScreen from './src/components/screens/SurveilScreen';
+import LoginScreen from './src/components/screens/LoginScreen';
 
 
 
@@ -32,20 +33,11 @@ export const persistor = persistStore(store);
 const AppNavigator = createStackNavigator(
     {
         Home: HomeScreen,
-        Surveil:SurveilScreen
+        Surveil:SurveilScreen,
+        Login:LoginScreen
     },
     {
-        initialRouteName: 'Home',
-        /* The header config from HomeScreen is now here */
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: '#f4511e',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-        },
+        initialRouteName: 'Login',
     }
 );
 
@@ -76,5 +68,6 @@ export default class App extends React.Component {
         );
     }
 }
+
 
 //this.props.navigation.navigate('Detail')
