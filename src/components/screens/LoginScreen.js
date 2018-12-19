@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {StyleSheet,ToastAndroid} from 'react-native';
 import { Container,Form,Label,Input, Item, Content, Footer, FooterTab, Button, Text } from 'native-base';
-import {checkLoginOperation} from './../../actions/users';
 import {connect} from 'react-redux';
+import { StackActions, NavigationActions } from 'react-navigation';
+
+import {checkLoginOperation} from './../../actions/users';
 
 class LoginScreen extends Component {
     static navigationOptions = {
@@ -24,7 +26,8 @@ class LoginScreen extends Component {
     };
 
     LoginButtonClicked = ()=> {
-
+        this.props.checkLoginOperation(this.state.email,this.state.password);
+        //ToastAndroid.show(val.toString(),ToastAndroid.SHORT);
 
     }
 
@@ -33,7 +36,29 @@ class LoginScreen extends Component {
 
     }
 
+    componentWillMount() {
+
+    }
+
+    componentDidMount() {
+        if(this.props.users.isAuthenticated === true)
+        {
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Home' })],
+            });
+            this.props.navigation.dispatch(resetAction);
+        }
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+
+    }
+
+
     render(){
+
 
         return (<Container>
             <Content>
