@@ -1,10 +1,10 @@
 import React from "react";
-import { Container, Header, Content, Button,Text,Icon } from 'native-base';
+import { Container, Card,CardItem,Body,Content, Button,Text,Icon } from 'native-base';
 import * as Expo from "expo";
 
 export default  class HomeScreen extends React.Component {
     static navigationOptions = {
-        title: 'Home',
+        title: 'Surveil Screen',
         headerStyle: {
             backgroundColor: '#4186f4',
         },
@@ -15,10 +15,11 @@ export default  class HomeScreen extends React.Component {
     };
     render() {
         return (
-            <Button onPress={() => {this.props.navigation.navigate('Surveil')}} block success>
-                <Icon name='home' />
-                <Text>Home!</Text>
-            </Button>
+            <Container>
+                <Content>
+
+                </Content>
+            </Container>
         );
     }
 }

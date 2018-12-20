@@ -1,5 +1,5 @@
 if(__DEV__){
-    import('./src/ReactotronConfig' ).then(() => console.log('Reactotron Configured'))
+    import('./src/config/ReactotronConfig' ).then(() => console.log('Reactotron Configured'))
 }
 import React from "react";
 import { createStackNavigator, createAppContainer } from "react-navigation";
@@ -19,7 +19,6 @@ import SurveilScreen from './src/components/screens/SurveilScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
 
 
-
 const persistConfig = {
     key: 'root',
     storage: storage,
@@ -35,8 +34,7 @@ const store = createStore(
 );
 
 export const persistor = persistStore(store);
-
-//persistor.purge().then(() => {console.log("Purged succesfull")});
+persistor.purge().then(() => {console.log("Purged succesfull")});
 
 
 

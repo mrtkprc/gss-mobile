@@ -22,12 +22,28 @@ class LoginScreen extends Component {
         isLoginTried:false,
         email:'',
         password:'',
+        isAuthenticated:false,
         errors:{}
     };
 
+    constructor(props) {
+        super(props);
+    }
+
     LoginButtonClicked = ()=> {
+        console.log("Login Button Clicking");
         this.props.checkLoginOperation(this.state.email,this.state.password);
+        this.setState({isLoginTried:true});
         //ToastAndroid.show(val.toString(),ToastAndroid.SHORT);
+        setTimeout(()=>{
+            if(this.state.isAuthenticated)
+            {
+                ToastAndroid.show("Login Success!",ToastAndroid.SHORT);
+            }
+            else
+                ToastAndroid.show("Login Operation is Failed",ToastAndroid.LONG);
+
+        },1500);
 
     }
 
@@ -36,12 +52,8 @@ class LoginScreen extends Component {
 
     }
 
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-        if(this.props.users.isAuthenticated === true)
+    forward2HomeScreen = ()=> {
+        if(this.state.isAuthenticated === true)
         {
             const resetAction = StackActions.reset({
                 index: 0,
@@ -51,32 +63,58 @@ class LoginScreen extends Component {
         }
     }
 
+    componentWillMount() {
+        console.log("cwm",this.props.users);
+        if(this.props.users == undefined)
+            this.setState({isAuthenticated:false})
+        else
+            this.setState({isAuthenticated:this.props.users.isAuthenticated});
 
-    componentWillReceiveProps(nextProps) {
+
+    }
+
+    componentDidMount() {
+        console.log("cdm");
+
 
     }
 
 
+    componentWillReceiveProps(nextProps) {
+        console.log("cwrp",nextProps);
+        this.setState({isAuthenticated:nextProps.users.isAuthenticated});
+    }
+
     render(){
-
-
-        return (<Container>
-            <Content>
-                <Form>
-                    <Item floatingLabel>
-                        <Label>E-Mail</Label>
-                        <Input onChangeText={(text)=> {this.handleMultipleInput(text,'email')}} value={this.state.email} />
-                    </Item>
-                    <Item floatingLabel last>
-                        <Label>Password</Label>
-                        <Input onChangeText={(text)=> {this.handleMultipleInput(text,'password')}} value={this.state.password} secureTextEntry={true} />
-                    </Item>
-                    <Button style={styles.loginButton} onPress={this.LoginButtonClicked}>
-                        <Text>Login System</Text>
-                    </Button>
-                </Form>
-            </Content>
-        </Container>);
+        console.log("render with isAuth",this.state.isAuthenticated.toString());
+        if(this.state.isAuthenticated == false) {
+            return (<Container>
+                <Content>
+                    <Form>
+                        <Item floatingLabel>
+                            <Label>E-Mail</Label>
+                            <Input onChangeText={(text) => {
+                                this.handleMultipleInput(text, 'email')
+                            }} value={this.state.email}/>
+                        </Item>
+                        <Item floatingLabel last>
+                            <Label>Password</Label>
+                            <Input onChangeText={(text) => {
+                                this.handleMultipleInput(text, 'password')
+                            }} value={this.state.password} secureTextEntry={true}/>
+                        </Item>
+                        <Button style={styles.loginButton} onPress={this.LoginButtonClicked}>
+                            <Text>Login System</Text>
+                        </Button>
+                    </Form>
+                </Content>
+            </Container>);
+        }
+        else
+        {
+            this.forward2HomeScreen();
+            return (<Text>Logged In</Text>);
+        }
     }
 }
 const styles = StyleSheet.create({

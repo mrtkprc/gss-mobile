@@ -9,6 +9,7 @@ export const UserActionList = {
 
 export function checkLoginOperation(email,password){
     const token = tokenizeValues({email,password});
+
     return dispatch => {
         axios.post(`${API_BASE}/relative/login_control/`,{token})
             .then(result => result.data)
