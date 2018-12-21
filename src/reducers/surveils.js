@@ -7,6 +7,12 @@ const initialState = {
 export default (state = initialState,action) => {
     switch (action.type) {
 
+        case SurveilsActionList.FETCHED_GET_SENSOR_LOCATIONS_WITH_STIMULUSES:
+            return {
+                ...state,
+                sensor_locations_with_stimuluses:action.payload
+            }
+
         case SurveilsActionList.FETCHED_GET_SENSOR_LOCATIONS:
             return {
                 ...state,

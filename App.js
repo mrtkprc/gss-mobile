@@ -34,16 +34,17 @@ const store = createStore(
 );
 
 export const persistor = persistStore(store);
-persistor.purge().then(() => {console.log("Purged succesfull")});
+//persistor.purge().then(() => {console.log("Purged succesfull")});
 
 
 
 const AppNavigator = createStackNavigator(
     {
-        Home: HomeScreen,
-        Surveil:SurveilScreen,
-        Login:LoginScreen
+        Home: {screen:HomeScreen},
+        Surveil:{screen:SurveilScreen},
+        Login:{screen:LoginScreen}
     },
+
     {
         initialRouteName: 'Login',
     }

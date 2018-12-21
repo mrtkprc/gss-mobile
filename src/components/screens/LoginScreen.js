@@ -26,15 +26,9 @@ class LoginScreen extends Component {
         errors:{}
     };
 
-    constructor(props) {
-        super(props);
-    }
-
     LoginButtonClicked = ()=> {
-        console.log("Login Button Clicking");
         this.props.checkLoginOperation(this.state.email,this.state.password);
         this.setState({isLoginTried:true});
-        //ToastAndroid.show(val.toString(),ToastAndroid.SHORT);
         setTimeout(()=>{
             if(this.state.isAuthenticated)
             {
@@ -62,31 +56,18 @@ class LoginScreen extends Component {
             this.props.navigation.dispatch(resetAction);
         }
     }
-
     componentWillMount() {
-        console.log("cwm",this.props.users);
-        if(this.props.users == undefined)
+        if(this.props.users === undefined)
             this.setState({isAuthenticated:false})
         else
             this.setState({isAuthenticated:this.props.users.isAuthenticated});
-
-
     }
-
-    componentDidMount() {
-        console.log("cdm");
-
-
-    }
-
 
     componentWillReceiveProps(nextProps) {
-        console.log("cwrp",nextProps);
         this.setState({isAuthenticated:nextProps.users.isAuthenticated});
     }
 
     render(){
-        console.log("render with isAuth",this.state.isAuthenticated.toString());
         if(this.state.isAuthenticated == false) {
             return (<Container>
                 <Content>
