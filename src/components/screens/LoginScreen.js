@@ -3,8 +3,11 @@ import {StyleSheet,ToastAndroid} from 'react-native';
 import { Container,Form,Label,Input, Item, Content, Footer, FooterTab, Button, Text } from 'native-base';
 import {connect} from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation';
-
 import {checkLoginOperation} from './../../actions/users';
+import registerForPushNotification from './../../helpers/registerForPushNotifications';
+import {tokenizeValues} from './../../helpers/backendHelper';
+import {API_BASE} from "../../config/env";
+import axios from 'axios';
 
 class LoginScreen extends Component {
     static navigationOptions = {
@@ -33,6 +36,16 @@ class LoginScreen extends Component {
             if(this.state.isAuthenticated)
             {
                 ToastAndroid.show("Login Success!",ToastAndroid.SHORT);
+                registerForPushNotification()
+                    .then(data=>{
+                        const push_id = {data:data,email: this.state.email};
+                        const token = tokenizeValues(push_id);
+                        axios.put(`${API_BASE}/relative/add/expo_push_notification?token=${token}`)
+                            .then(result => result.data)
+                            .then(res_data => {
+
+                            });
+                    });
             }
             else
                 ToastAndroid.show("Login Operation is Failed",ToastAndroid.LONG);

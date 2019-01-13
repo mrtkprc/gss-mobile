@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import RoomLastActivities from './../RoomLastActivities';
 import _ from 'lodash';
 import {fetchSensorLocations,fetchSensorLocationsWithStimuluses} from "../../actions/surveils";
+import LastActions from './../LastActions';
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -55,12 +56,9 @@ class HomeScreen extends React.Component {
                             }
                         </Tab>
                         <Tab heading={ <TabHeading><Icon name="compass" type="Feather" /><Text>Last Actions</Text></TabHeading>}>
-                            <Text>Tab 2</Text>
+                            <LastActions/>
                         </Tab>
                     </Tabs>
-
-
-
                 </Content>
             </Container>
         );

@@ -17,7 +17,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import HomeScreen from './src/components/screens/HomeScreen';
 import SurveilScreen from './src/components/screens/SurveilScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
-
+import registerForPushNotificationsAsync from './src/helpers/registerForPushNotifications';
 
 const persistConfig = {
     key: 'root',
@@ -35,8 +35,6 @@ const store = createStore(
 
 export const persistor = persistStore(store);
 //persistor.purge().then(() => {console.log("Purged succesfull")});
-
-
 
 const AppNavigator = createStackNavigator(
     {
@@ -56,6 +54,20 @@ export default class App extends React.Component {
     state ={
         loading: true
     };
+
+    componentWillMount() {
+        registerForPushNotificationsAsync();
+        this.listener = Expo.Notifications.addListener(this.listen);
+    }
+
+    componentWillUnmount() {
+        this.listener && Expo.Notifications.removeListener(this.listen);
+    }
+
+    listen = ({origin,data})=> {
+        console.log("listen: ",origin,data);
+    };
+
 
     async componentDidMount() {
         await Expo.Font.loadAsync({
