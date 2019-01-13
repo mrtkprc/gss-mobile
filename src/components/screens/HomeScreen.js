@@ -81,18 +81,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen);
-
-
-/*
-//for header
-static navigationOptions = {
-    title: 'Surveil Screen',
-    headerStyle: {
-        backgroundColor: '#4186f4',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-        fontWeight: 'bold',
-    }
-};
-*/
