@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "GSS-Mobile",
+    "slug": "GSS",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
